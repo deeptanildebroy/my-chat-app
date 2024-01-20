@@ -1,10 +1,18 @@
 /* eslint-disable react/prop-types */
 import "./Chat.css"
-import { useState , useMemo} from "react";
+import { useState , useMemo ,useRef ,useEffect} from "react";
 
 function Chat({ socket, username, room }) {
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
+
+  const messageContainerRef = useRef(null);
+
+  const ScrollToBottom = () =>{
+    if (messageContainerRef.current) {
+      messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+    }
+  }
 
   const sendMessage = async () => {
     if (currentMessage !== "") {
@@ -25,6 +33,11 @@ function Chat({ socket, username, room }) {
     }
   };
   
+  useEffect(() => {
+    ScrollToBottom();
+  }, [messageList]);
+  
+
   useMemo(() =>   {  
   socket.on("receive_message", (data) => {
     setMessageList((list) => [...list, data]);
@@ -36,7 +49,7 @@ function Chat({ socket, username, room }) {
         <p>Room : {room}</p>
       </div>
       <div className="chat-body">
-        <div className="message-container">
+        <div ref={messageContainerRef} className="message-container">
           {messageList.map((messageContent) => {
             return (
               <div key={messageContent.id}

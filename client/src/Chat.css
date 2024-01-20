@@ -54,9 +54,17 @@
 }
 
 /* Message meta styling */
-.message-meta {
+#you .message-meta {
   display: flex;
   justify-content: flex-end;
+  margin-top: 5px;
+  color: #7f8c8d;
+  font-size: 12px;
+}
+
+#other .message-meta {
+  display: flex;
+  justify-content: flex-start;
   margin-top: 5px;
   color: #7f8c8d;
   font-size: 12px;
