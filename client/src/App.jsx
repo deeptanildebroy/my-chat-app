@@ -21,17 +21,17 @@ function App() {
     <div className="App">
       {!showChat ? (
         <div className="joinChatContainer">
-          <h3>Join A Chat</h3>
+          <h3>Join Chat</h3>
           <input
             type="text"
-            placeholder="Enter your username"
+            placeholder="Enter a Username"
             onChange={(event) => {
               setUsername(event.target.value);
             }}
           />
           <input
             type="text"
-            placeholder="Enter Room Name"
+            placeholder="Enter a Room ID"
             onChange={(event) => {
               setRoom(event.target.value);
             }}

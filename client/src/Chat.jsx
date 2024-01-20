@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import "./Chat.css"
-import { useEffect, useState } from "react";
-import ScrollToBottom from "react-scroll-to-bottom";
+import { useState , useMemo} from "react";
 
 function Chat({ socket, username, room }) {
   const [currentMessage, setCurrentMessage] = useState("");
@@ -10,6 +9,7 @@ function Chat({ socket, username, room }) {
   const sendMessage = async () => {
     if (currentMessage !== "") {
       const messageData = {
+        id: Date.now(),
         room: room,
         author: username,
         message: currentMessage,
@@ -24,28 +24,27 @@ function Chat({ socket, username, room }) {
       setCurrentMessage("");
     }
   };
-
-  useEffect(() => {
-    socket.on("receive_message", (data) => {
-      setMessageList((list) => [...list, data]);
-    });
-  }, [socket]);
+  
+  useMemo(() =>   {  
+  socket.on("receive_message", (data) => {
+    setMessageList((list) => [...list, data]);
+  });}, [socket])
 
   return (
     <div className="chat-window">
       <div className="chat-header">
-        <p>Live Chat</p>
+        <p>Room : {room}</p>
       </div>
       <div className="chat-body">
-        <ScrollToBottom className="message-container">
+        <div className="message-container">
           {messageList.map((messageContent) => {
             return (
-              <div key={messageContent.time}
+              <div key={messageContent.id}
                 className="message"
                 id={username === messageContent.author ? "you" : "other"}
               >
-                <div>
-                  <div className="message-content">
+                <div className="message-wrapper">
+                  <div className="messageContent-wrapper">
                     <p>{messageContent.message}</p>
                   </div>
                   <div className="message-meta">
@@ -56,7 +55,7 @@ function Chat({ socket, username, room }) {
               </div>
             );
           })}
-        </ScrollToBottom>
+        </div>
       </div>
       <div className="chat-footer">
         <input

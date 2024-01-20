@@ -1,87 +1,96 @@
-/* Add this CSS code to your existing stylesheet or create a new one */
+/* Add this CSS code to your Chat.css file for a Facebook-like styling */
 
 /* Chat window styling */
 .chat-window {
-    display: flex;
-    flex-direction: column;
-    height: 400px; /* Set your desired height */
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  
-  /* Chat header styling */
-  .chat-header {
-    background-color: #3498db;
-    color: #fff;
-    text-align: center;
-    padding: 10px;
-  }
-  
-  /* Chat body styling */
-  .chat-body {
-    flex: 1;
-    overflow-y: auto;
-  }
-  
-  /* Message container styling */
-  .message-container {
-    padding: 10px;
-  }
-  
-  /* Message styling */
-  .message {
-    margin-bottom: 10px;
-  }
-  
-  /* You styling */
-  #you {
-    text-align: right;
-  }
-  
-  /* Other styling */
-  #other {
-    text-align: left;
-  }
-  
-  /* Message content styling */
-  .message-content {
-    background-color: #ecf0f1;
-    padding: 8px;
-    border-radius: 8px;
-  }
-  
-  /* Message meta styling */
-  .message-meta {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 5px;
-    color: #7f8c8d;
-    font-size: 12px;
-  }
-  
-  /* Input and button styling */
-  .chat-footer {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-  }
-  
-  input {
-    flex: 1;
-    margin-top: 10px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-right: 10px;
-  }
-  
-  button {
-    background-color: #2ecc71;
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 400px;
+  border: 1px solid #dddfe2;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Chat header styling */
+.chat-header {
+  background-color: #1877f2;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+}
+
+/* Chat body styling */
+.chat-body {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Message container styling */
+.message-container {
+  padding: 0px;
+}
+
+/* Message styling */
+.message {
+  margin-bottom: 10px;
+}
+
+/* You styling */
+#you {
+  text-align: right;
+}
+
+/* Other styling */
+#other {
+  text-align: left;
+}
+/* Message content styling */
+.message-content {
+  background-color: #f0f2f5;
+  padding: 2px;
+  border-radius: 8px;
+}
+
+/* Message meta styling */
+.message-meta {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 5px;
+  color: #7f8c8d;
+  font-size: 12px;
+}
+
+/* Input and button styling */
+.chat-footer {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #dddfe2;
+  border-radius: 20px;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+button {
+  background-color: #1877f2;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+#time{
+  color: #1877f2;
+  margin-right: 2px;
+}
+
+#author{
+  color: rgb(26, 224, 59);
+}
