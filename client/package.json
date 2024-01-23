@@ -1,18 +1,21 @@
 {
+  "homepage": "http://deeptanildebroy.github.io/my-chat-app",
   "name": "client",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "predeploy":"npm run build",
+    "deploy" : "gh-pages -d dist",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
   "dependencies": {
+    "emoji-mart": "^5.5.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scroll-to-bottom": "^4.2.0",
     "socket.io-client": "^4.7.4"
   },
   "devDependencies": {
@@ -23,7 +26,7 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
-    "tailwindcss": "^3.4.1",
+    "gh-pages": "^6.1.1",
     "vite": "^5.0.8"
   }
 }

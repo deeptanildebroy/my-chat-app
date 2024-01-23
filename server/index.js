@@ -10,19 +10,26 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "",
     methods: ["GET", "POST"],
   },
 });
 
 io.on("connection", (socket) => {
-  socket.on("join_room", (data) => {
-    socket.join(data);
+  console.log("User Connected ", socket.id);
+  socket.on("join_room", ({ room, username }) => {
+    socket.join(room);
+    io.to(room).emit("join_user",username);
   });
 
   socket.on("send_message", (data) => {
     socket.to(data.room).emit("receive_message", data);
   });
+
+  socket.on("leave_room", ({ room,username }) => {
+    socket.leave(room);
+    io.to(room).emit("remove_user",username);
+  })
 
   socket.on("disconnect", () => {
     console.log("User Disconnected", socket.id);
@@ -30,5 +37,5 @@ io.on("connection", (socket) => {
 });
 
 server.listen(3001, () => {
-  console.log("SERVER RUNNING");
+  console.log("SERVER RUNNING ON PORT : 3001");
 });
