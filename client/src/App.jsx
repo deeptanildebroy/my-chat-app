@@ -26,6 +26,7 @@ function App() {
           <input
             type="text"
             placeholder="Enter a Username"
+            value={username}
             onChange={(event) => {
               setUsername(event.target.value);
             }}
@@ -33,6 +34,7 @@ function App() {
           <input
             type="text"
             placeholder="Enter a Room ID"
+            value={room}
             onChange={(event) => {
               setRoom(event.target.value);
             }}

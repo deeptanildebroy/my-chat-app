@@ -7,6 +7,9 @@
   justify-content: center;
   height: 100vh;
 }
+.username-label {
+  text-align: left;
+}
 
 /* Join Chat Container styling */
 .joinChatContainer {

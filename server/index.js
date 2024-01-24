@@ -6,14 +6,17 @@ const { Server } = require("socket.io");
 
 app.use(cors());
 
+
 const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://deeptanildebroy.github.io/my-chat-app/",
+    origin: "http://localhost:3000",
     methods: ["GET", "POST"],
+    credentials: true,
   },
 });
+
 
 io.on("connection", (socket) => {
   console.log("User Connected ", socket.id);

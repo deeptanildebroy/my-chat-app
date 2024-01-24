@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
+import { useState, useMemo, useRef, useEffect } from "react";
 import "./Chat.css";
-import { useState,useMemo } from "react";
 
 function Chat({ socket, username, room }) {
-  
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
-  
+  const messagesContainerRef = useRef(null);
 
   const messageData = {
     id: Date.now(),
@@ -16,6 +15,7 @@ function Chat({ socket, username, room }) {
     time:
       new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes(),
   };
+
   const sendMessage = () => {
     if (currentMessage !== "") {
       socket.emit("send_message", messageData);
@@ -30,12 +30,30 @@ function Chat({ socket, username, room }) {
     });
   }, [socket]);
 
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messageList]);
+
+  const scrollToBottom = () => {
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop =
+        messagesContainerRef.current.scrollHeight;
+    }
+  };
+
+  const scrollToTop = () => {
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = 0;
+    }
+  };
+
   return (
     <div className="chat-window">
       <div className="chat-header">
         <p>{room} </p>
       </div>
-      <div className="chat-body">
+      <div className="chat-body" ref={messagesContainerRef}>
         <div className="message-container">
           {messageList.map((messageContent) => {
             return (
@@ -56,6 +74,9 @@ function Chat({ socket, username, room }) {
               </div>
             );
           })}
+          <button className="scroll-button" onClick={scrollToTop}>
+            &#8593;
+          </button>
         </div>
       </div>
       <div className="chat-footer">
@@ -67,7 +88,7 @@ function Chat({ socket, username, room }) {
             setCurrentMessage(event.target.value);
           }}
           onKeyPress={(event) => {
-            event.key==="Enter" && sendMessage();
+            event.key === "Enter" && sendMessage();
           }}
         />
         <button onClick={sendMessage}>&#9658;</button>

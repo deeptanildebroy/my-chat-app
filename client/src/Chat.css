@@ -1,6 +1,5 @@
-/* Add this CSS code to your Chat.css file for a Facebook-like styling */
+/* Add this to your existing Chat.css file or create a new one */
 
-/* Chat window styling */
 .chat-window {
   display: flex;
   flex-direction: column;
@@ -25,6 +24,7 @@
 .chat-body {
   flex: 1;
   overflow-y: auto;
+  scroll-behavior: smooth; /* Added for smooth scrolling */
 }
 
 /* Message container styling */
@@ -46,6 +46,7 @@
 #other {
   text-align: left;
 }
+
 /* Message content styling */
 .message-content {
   background-color: #f0f2f5;
@@ -66,7 +67,7 @@
   display: flex;
   justify-content: flex-start;
   margin-top: 5px;
-  color: #7f8c8d;
+  color: #0fddd3;
   font-size: 12px;
 }
 
@@ -74,6 +75,7 @@
 .chat-footer {
   display: flex;
   align-items: center;
+  justify-content: space-between; /* Adjusted for better alignment */
   padding: 10px;
 }
 
@@ -94,11 +96,18 @@ button {
   border-radius: 20px;
   cursor: pointer;
 }
-#time{
-  color: #1877f2;
-  margin-right: 2px;
+
+/* Styles for the scroll-to-top button */
+button.scroll-to-top {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-#author{
-  color: rgb(26, 224, 59);
+button.scroll-to-top:hover {
+  background-color: #2980b9;
 }
