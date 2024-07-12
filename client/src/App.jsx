@@ -1,50 +1,43 @@
-import "./App.css";
-import io from "socket.io-client";
-import { useState } from "react";
-import Chat from "./Chat";
-
-const socket = io.connect("http://localhost:3001");
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import { ChatProvider } from "./context/ChatContext";
+import { AuthProvider } from "./context/AuthContext";
+import { MessageProvider } from "./context/MessageContext";
+import DirectChat from "./components/createchat/DirectChat";
+import GroupChat from "./components/createchat/GroupChat";
+import HomeLayout from "./pages/layout/HomeLayout";
+import ChatList from "./components/ChatList";
+import CombineChat from "./components/DirectCombineChat/CombineChat";
+import { UserProvider } from "./context/UserContext";
 
 function App() {
-
-  const [username, setUsername] = useState("");
-  const [room, setRoom] = useState("");
-  const [showChat, setShowChat] = useState(false);
-
-  const joinRoom = () => {
-    if (username !== "" && room !== "") {
-      socket.emit("join_room", { room , username });
-      setShowChat(true);
-    }
-  };
-
   return (
-    <div className="App">
-      {!showChat ? (
-        <div className="joinChatContainer">
-          <h3>Join Chat</h3>
-          <input
-            type="text"
-            placeholder="Enter a Username"
-            value={username}
-            onChange={(event) => {
-              setUsername(event.target.value);
-            }}
-          />
-          <input
-            type="text"
-            placeholder="Enter a Room ID"
-            value={room}
-            onChange={(event) => {
-              setRoom(event.target.value);
-            }}
-          />
-          <button onClick={joinRoom}>Join A Room</button>
-        </div>
-      ) : (
-        <Chat socket={socket} username={username} room={room} setShowChat={setShowChat}/>
-      )}
-    </div>
+    <>
+      <AuthProvider>
+        <UserProvider>
+          <ChatProvider>
+            <MessageProvider>
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/home" element={<HomeLayout />}>
+                    <Route path="chats" element={<CombineChat />} />
+                    <Route path="groups" element={<GroupChat />} />
+                    <Route path="newchat" element={<DirectChat />} />
+                    <Route path="chat/:chatid" element={<CombineChat />} />
+                  </Route>
+                  <Route path="/groupchat/:groupid" element={<></>} />
+                  <Route path="/newgroupchat" element={<GroupChat />} />
+                </Routes>
+              </BrowserRouter>
+            </MessageProvider>
+          </ChatProvider>
+        </UserProvider>
+      </AuthProvider>
+    </>
   );
 }
+
 export default App;
