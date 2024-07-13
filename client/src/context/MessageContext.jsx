@@ -32,12 +32,13 @@ export const MessageProvider = ({ children }) => {
     return unsubscribe;
   };
 
-  const sendMessage = async (chatId, username, message,fileUrl = null,fileType = null) => {
+  const sendMessage = async (chatId, username, message,fileUrl = null,fileType = null,files = []) => {
     try {
       await addDoc(collection(db, "chats", chatId, "messages"), {
         message,
         fileUrl,
         fileType,
+        files,
         author: username,
         createdAt: serverTimestamp(),
         editedAt: serverTimestamp(),

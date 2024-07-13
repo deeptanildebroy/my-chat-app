@@ -4,6 +4,7 @@ import formatDate from "../utils/formatDate";
 import { useParams } from "react-router-dom";
 import { useMessage } from "../context/MessageContext";
 import RenderFile from "../services/RenderFile";
+import RenderContent from "../services/RenderContent";
 
 const MessagesArea = () => {
   const { chatid } = useParams();
@@ -37,6 +38,11 @@ const MessagesArea = () => {
                 <RenderFile message={msg}/>
               </>
             )}
+            {msg.files?.map((file) => (
+            <>
+              <RenderContent file={file} />
+            </>))
+            }
           </div>
         );
       })}

@@ -6,6 +6,7 @@ import { FaPaperclip } from "react-icons/fa";
 import { fileUpload } from "../utils/uploadFile";
 import { useMessage } from "../context/MessageContext";
 import RenderFilePreview from "../services/RenderFilePreview";
+import TextToSign from "../services/TexttoSign";
 
 const MessageInput = () => {
   const [message, setMessage] = useState("");
@@ -38,6 +39,18 @@ const MessageInput = () => {
     setMessage("");
     setFile(null);
   };
+
+  const handleTranslationComplete = async (translationImages) => {
+    await sendMessage(
+      selectedChatId,
+      currentUser.displayName,
+      "",
+      null,
+      null,
+      translationImages
+    );
+  };
+
   return (
     <div className="flex items-center">
       <input
@@ -55,7 +68,11 @@ const MessageInput = () => {
         className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
         placeholder="Type your message..."
       />
-      {file && <><RenderFilePreview file={file}/></>}
+      {file && (
+        <>
+          <RenderFilePreview file={file} />
+        </>
+      )}
       <div style={{ position: "relative" }}>
         <button onClick={() => setShowEmojiPicker(!showEmojiPicker)}>😊</button>
         {showEmojiPicker && (
@@ -70,6 +87,10 @@ const MessageInput = () => {
       >
         Send
       </button>
+      <TextToSign
+        text={message}
+        onTranslationComplete={handleTranslationComplete}
+      />
     </div>
   );
 };

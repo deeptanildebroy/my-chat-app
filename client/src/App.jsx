@@ -10,6 +10,7 @@ import HomeLayout from "./pages/layout/HomeLayout";
 import ChatList from "./components/ChatList";
 import CombineChat from "./components/DirectCombineChat/CombineChat";
 import { UserProvider } from "./context/UserContext";
+import Logout from "./pages/Logout";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
                 <Routes>
                   <Route path="/register" element={<Register />} />
                   <Route path="/login" element={<Login />} />
+                  <Route path="/logout" element={<Logout/>} />
                   <Route path="/home" element={<HomeLayout />}>
                     <Route path="chats" element={<CombineChat />} />
                     <Route path="groups" element={<GroupChat />} />
