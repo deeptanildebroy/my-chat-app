@@ -6,10 +6,12 @@ import {
   MdAmpStories,
   MdOutlineSettings,
 } from "react-icons/md";
-import { ImSphere } from "react-icons/im";
+
 import { CiLogout } from "react-icons/ci";
+import { useAuth } from "../../context/AuthContext";
 
 const Sidebar = () => {
+  const { currentUser } = useAuth();
   const [showSettings, setShowSettings] = useState(false);
 
   const toggleshow = () => {
@@ -19,7 +21,7 @@ const Sidebar = () => {
   return (
     <div className="w-16 bg-gray-100 flex flex-col items-center py-4 space-y-4 border-r border-gray-300">
       <NavLink to="/home" className="w-10 h-10 mb-6">
-        <ImSphere className="w-full h-full" />
+        <img className='w-8 h-8 bg-gray-500 rounded-full mr-4' src={currentUser.photoUrl} alt="User"/>
       </NavLink>
       <div className="flex flex-col space-y-6 flex-1">
         <NavLink
@@ -35,7 +37,7 @@ const Sidebar = () => {
           <MdGroups className="w-full h-full" />
         </NavLink>
         <NavLink
-          to="/stories"
+          to="/home/stories"
           className="w-6 h-6 text-gray-600 hover:text-blue-600 cursor-pointer"
         >
           <MdAmpStories className="w-full h-full" />

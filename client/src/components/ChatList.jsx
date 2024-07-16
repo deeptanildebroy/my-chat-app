@@ -39,6 +39,7 @@ const ChatList = () => {
     <div className="w-1/3 bg-gray-100 h-screen p-4 relative flex flex-col">
       <div>
         <p className="text-gray-500 font-bold mb-4">CHATS</p>
+        <div> Log In as : {currentUser.displayName}</div>
         {chats.map((chat) => chat.id !== selectedChatId ? (
           <div
             key={chat.id}
@@ -54,7 +55,7 @@ const ChatList = () => {
           <div
             key={chat.id}
             className="flex items-center p-2 mb-2 bg-blue-700 rounded-md"
-            onClick={() => handleClick(chat.id)}
+            onClick={() => handleClick(chat,chat.id)}
           >
             <div className="w-8 h-8 bg-gray-500 rounded-full mr-4">
               <img src="" alt="" />

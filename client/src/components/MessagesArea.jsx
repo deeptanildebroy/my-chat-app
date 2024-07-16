@@ -5,10 +5,12 @@ import { useParams } from "react-router-dom";
 import { useMessage } from "../context/MessageContext";
 import RenderFile from "../services/RenderFile";
 import RenderContent from "../services/RenderContent";
+import { useChat } from "../context/ChatContext";
 
 const MessagesArea = () => {
   const { chatid } = useParams();
   const { currentUser } = useAuth();
+  const { setSelectedChat } = useChat()
   const { messages, fetchMessages } = useMessage();
 
   useEffect(() => {
@@ -16,6 +18,7 @@ const MessagesArea = () => {
       const unsubscribe = fetchMessages(chatid);
       return () => unsubscribe;
     }
+    setSelectedChat(chatid)
   }, [chatid]);
 
   return (
@@ -32,6 +35,7 @@ const MessagesArea = () => {
             } max-w-md break-words`}
           >
             <h1 className="text-lg">{msg.message}</h1>
+            <p className="">{msg.author}</p>
             <p className="text-sm items-end">{formatDate(msg.createdAt)}</p>
             {msg.fileUrl && msg.fileType && (
               <>

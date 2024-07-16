@@ -7,8 +7,8 @@ import { useUser } from "../../context/UserContext";
 
 const DirectChat = () => {
   const { currentUser } = useAuth();
-  const { chats, createNewChat, fetchChats } = useChat();
-  const { selectedUser } = useUser();
+  const { chats, createNewChat, fetchChats , fetchChatExist} = useChat();
+  const { selectedUser ,setSelectedUser } = useUser();
   const navigate = useNavigate();
 
   const handleCreate = async () => {
@@ -18,10 +18,13 @@ const DirectChat = () => {
     );
 
     if (chatExist) {
-      console.log("Cannot Create New Chat. Chat Already Exists");
+      const existngChatId = await fetchChatExist(users);
+      navigate(`/home/chat/${existngChatId}`)
+      setSelectedUser(null)
     } else {
       const chatid = await createNewChat(users);
       navigate(`/home/chat/${chatid}`);
+      setSelectedUser(null)
     }
   };
 
@@ -43,7 +46,7 @@ const DirectChat = () => {
         className="mt-4 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg shadow"
         onClick={handleCreate}
       >
-        Create
+        Create/Get
       </button>
     </div>
   );

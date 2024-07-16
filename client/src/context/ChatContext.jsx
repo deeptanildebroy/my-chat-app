@@ -8,6 +8,7 @@ import {
   doc,
   updateDoc,
   deleteDoc,
+  getDocs,
 } from "firebase/firestore";
 import React, { useContext, useState } from "react";
 import { db } from "../firebase/config";
@@ -39,6 +40,16 @@ export const ChatProvider = ({ children }) => {
 
     return unsubscribe;
   };
+
+  // Fetch a existing chat using their members
+  const fetchChatExist = async(users) => {
+    const q = query(collection(db,'chats'),where('members','array-contains-any',users));
+    const snapshot = await getDocs(q);
+
+    const chatRef = snapshot.docs[0];
+    const chatId = chatRef.id;
+    return chatId;
+  }
 
   // Create a new chat with specified users
   const createNewChat = async (users) => {
@@ -114,6 +125,7 @@ export const ChatProvider = ({ children }) => {
     setSelectedChat,
     createNewChat,
     fetchChats,
+    fetchChatExist,
     archiveChat,
     unarchiveChat,
     pinChat,
